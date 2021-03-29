@@ -4,3 +4,6 @@
 [submodule "points_ground_filter"]
 	path = points_ground_filter
 	url = https://github.com/shangjie-li/points_ground_filter.git
+[submodule "Pandar40_ROS"]
+	path = Pandar40_ROS
+	url = https://github.com/shangjie-li/Pandar40_ROS.git

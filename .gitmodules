@@ -1,0 +1,6 @@
+[submodule "points_process"]
+	path = points_process
+	url = https://github.com/shangjie-li/points_process.git
+[submodule "points_ground_filter"]
+	path = points_ground_filter
+	url = https://github.com/shangjie-li/points_ground_filter.git

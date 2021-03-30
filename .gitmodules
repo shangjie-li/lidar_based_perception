@@ -7,3 +7,6 @@
 [submodule "Pandar40_ROS"]
 	path = Pandar40_ROS
 	url = https://github.com/shangjie-li/Pandar40_ROS.git
+[submodule "points_cluster"]
+	path = points_cluster
+	url = https://github.com/shangjie-li/points_cluster.git

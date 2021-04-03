@@ -10,3 +10,6 @@
 [submodule "points_cluster"]
 	path = points_cluster
 	url = https://github.com/shangjie-li/points_cluster.git
+[submodule "multiple_target_tracking"]
+	path = multiple_target_tracking
+	url = https://github.com/shangjie-li/multiple_target_tracking.git

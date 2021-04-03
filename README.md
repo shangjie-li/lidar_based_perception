@@ -15,7 +15,6 @@ ROS package for perception based on lidar
 ## 运行
  - 启动`lidar_based_perception`
    ```Shell
-   cd lidar_based_perception
    roslaunch multiple_target_tracking lidar_based_perception.launch
    ```
    

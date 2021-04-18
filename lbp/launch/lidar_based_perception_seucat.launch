@@ -1,0 +1,116 @@
+<!-- -->
+
+<launch>
+    
+    <!--hesai_lidar-->
+	<arg name="pcap_file"  default=""/>
+	<arg name="server_ip" default=""/>
+	<arg name="server_port"  default="9870"/>
+	<arg name="lidar_recv_port"  default="2368"/>
+	<arg name="gps_port"  default="10110"/>
+	<arg name="start_angle"  default="0"/>
+	<arg name="laser_return_type"  default="1"/>
+	<arg name="laser_count"  default="40"/>
+	<arg name="pcldata_type"  default="0"/>
+	<arg name="lidar_correction_file"  default="$(find hesai_lidar)/config/correction.csv"/>
+	<arg name="calibration_file"  default="$(find hesai_lidar)/config/calibration.yml"/>
+	<node pkg="hesai_lidar" name="hesai_lidar" type="hesai_lidar_node" output="screen" >
+		<param name="pcap_file" type="string" value="$(arg pcap_file)"/>
+		<param name="server_ip" type="string" value="$(arg server_ip)"/>
+		<param name="server_port"  type="int" value="$(arg server_port)"/>
+		<param name="lidar_recv_port"  type="int" value="$(arg lidar_recv_port)"/>
+		<param name="gps_port"  type="int" value="$(arg gps_port)"/>
+		<param name="start_angle"  type="double" value="$(arg start_angle)"/>
+		<param name="calibration_file" type="string" value="$(arg calibration_file)"/>
+		<param name="lidar_correction_file"  type="string" value="$(arg lidar_correction_file)"/>
+		<param name="laser_return_type"  type="int" value="$(arg laser_return_type)"/>
+		<param name="laser_count"  type="int" value="$(arg laser_count)"/>
+		<param name="pcldata_type"  type="int" value="$(arg pcldata_type)"/>
+	</node>
+    
+    <!--points_process-->
+    <node pkg="points_process" type="points_process_node" name="points_process_node" output="screen">
+        <param name="sub_topic" value="/pandar_points"/>
+        <param name="pub_topic" value="/pandar_points_processed"/>
+        <param name="crop_view_mode" value="false"/>
+        <param name="crop_range_mode" value="true"/>
+        <param name="filter_mode" value="false"/>
+        <param name="downsample_mode" value="true"/>
+        <param name="show_points_size" value="true"/>
+        <param name="show_time" value="true"/>
+        <param name="view_number" value="1"/>
+        <param name="field_of_view" value="100"/>
+        <param name="sensor_height" value="2.0"/>
+        <param name="view_higher_limit" value="2.0"/>
+        <param name="view_lower_limit" value="-4.0"/>
+        <param name="min_distance" value="1.5"/>
+        <param name="max_distance" value="50.0"/>
+        <param name="meank" value="5"/>
+        <param name="stdmul" value="0.2"/>
+        <param name="leafsize" value="0.10"/>
+    </node>
+    
+    <!--points_ground_filter-->
+    <node pkg="points_ground_filter" type="points_ground_filter_node" name="points_ground_filter_node" output="screen">
+        <param name="sub_topic" value="/pandar_points_processed"/>
+        <param name="pub_ground_topic" value="/pandar_points_ground"/>
+        <param name="pub_no_ground_topic" value="/pandar_points_no_ground"/>
+        <param name="pub_marker_topic" value="/feasible_region"/>
+        <param name="show_points_size" value="true"/>
+        <param name="show_time" value="true"/>
+        <param name="sensor_height" value="2.0"/>
+        <param name="radius_divider" value="0.15"/>
+        <param name="theta_divider" value="0.4"/>
+        <param name="local_slope_threshold" value="20"/>
+        <param name="general_slope_threshold" value="4"/>
+        <param name="curb_height_threshold" value="0.1"/>
+        <param name="ground_filter_mode" value="false"/>
+        <param name="ground_meank" value="5"/>
+        <param name="ground_stdmul" value="1.0"/>
+        <param name="no_ground_filter_mode" value="false"/>
+        <param name="no_ground_meank" value="5"/>
+        <param name="no_ground_stdmul" value="1.0"/>
+    </node>
+    
+    <!--points_cluster-->
+    <node pkg="points_cluster" type="points_cluster_node" name="points_cluster_node" output="screen">
+        <param name="sub_topic" value="/pandar_points_no_ground" />
+        <param name="pub_topic" value="/objects" />
+        <param name="show_objects_num" value="true"/>
+        <param name="show_time" value="true"/>
+        <param name="min_cluster_points_num" value="5" />
+        <param name="max_cluster_points_num" value="50000" />
+        <param name="min_cluster_size" value="0.2" />
+        <param name="max_cluster_size" value="5" />
+        <param name="seg_num" value="3" />
+        <rosparam param="seg_distance" > [30, 45, 60] </rosparam>
+        <rosparam param="cluster_distance" > [0.5, 0.75, 1.0] </rosparam>
+        <param name="road_info" value="true" />
+        <rosparam param="road_edge_left" > [0, 0, 0, 8.75] </rosparam>
+        <rosparam param="road_edge_right" > [0, 0, 0, -5.25] </rosparam>
+    </node>
+    
+    <!--multiple_target_tracking-->
+    <node pkg="multiple_target_tracking" type="multiple_target_tracking_node" name="multiple_target_tracking_node" output="screen">
+        <param name="sub_topic" value="/objects" />
+        <param name="pub_topic" value="/objects_tracked" />
+        <param name="frame_id" value="pandar" />
+        <param name="show_objects_num" value="true" />
+        <param name="show_time" value="true" />
+        <param name="time_interval" value="0.1" />
+        <param name="gate_threshold" value="400" />
+        <param name="blind_update_limit" value="1" />
+        <param name="sigma_ax" value="1" />
+        <param name="sigma_ay" value="1" />
+        <param name="sigma_ox" value="0.1" />
+        <param name="sigma_oy" value="0.1" />
+        <param name="min_scale" value="1.5" />
+        <param name="max_scale" value="6.0" />
+        <param name="min_height" value="0.5" />
+        <param name="max_height" value="2.5" />
+    </node>
+
+    <!--rviz-->
+    <node pkg="rviz" type="rviz" name="rviz" args="pandar.rviz" />
+
+</launch>

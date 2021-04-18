@@ -111,6 +111,6 @@
     </node>
 
     <!--rviz-->
-    <node pkg="rviz" type="rviz" name="rviz" args="pandar.rviz" />
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find lbp)/launch/pandar.rviz" />
 
 </launch>

@@ -68,6 +68,7 @@
     <node pkg="multiple_target_tracking" type="multiple_target_tracking_node" name="multiple_target_tracking_node" output="screen">
         <param name="sub_topic" value="/objects" />
         <param name="pub_topic" value="/objects_tracked" />
+        <param name="pub_topic_obstacle_array" value="/obstacles_array" />
         <param name="frame_id" value="pandar" />
         <param name="show_objects_num" value="true" />
         <param name="show_time" value="true" />
@@ -78,9 +79,9 @@
         <param name="sigma_ay" value="1" />
         <param name="sigma_ox" value="0.1" />
         <param name="sigma_oy" value="0.1" />
-        <param name="min_scale" value="1.5" />
+        <param name="min_scale" value="0" />
         <param name="max_scale" value="6.0" />
-        <param name="min_height" value="0.5" />
+        <param name="min_height" value="0" />
         <param name="max_height" value="2.5" />
     </node>
 

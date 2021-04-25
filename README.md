@@ -8,6 +8,7 @@ ROS package for perception based on lidar
    mkdir -p ros_ws/src
    cd ros_ws/src
    git clone https://github.com/shangjie-li/lidar_based_perception.git --recursive
+   git clone https://github.com/shangjie-li/perception_msgs.git
    cd ..
    catkin_make
    ```

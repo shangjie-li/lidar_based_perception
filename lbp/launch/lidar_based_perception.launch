@@ -68,7 +68,7 @@
     <node pkg="multiple_target_tracking" type="multiple_target_tracking_node" name="multiple_target_tracking_node" output="screen">
         <param name="sub_topic" value="/objects" />
         <param name="pub_topic" value="/objects_tracked" />
-        <param name="pub_topic_obstacle_array" value="/obstacles_array" />
+        <param name="pub_topic_obstacle_array" value="/obstacle_array" />
         <param name="frame_id" value="pandar" />
         <param name="show_objects_num" value="true" />
         <param name="show_time" value="true" />

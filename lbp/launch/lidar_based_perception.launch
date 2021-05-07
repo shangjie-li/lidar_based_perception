@@ -50,8 +50,9 @@
     <node pkg="points_cluster" type="points_cluster_node" name="points_cluster_node" output="screen">
         <param name="sub_topic" value="/pandar_points_no_ground" />
         <param name="pub_topic" value="/objects" />
-        <param name="show_objects_num" value="true"/>
-        <param name="show_time" value="true"/>
+        <param name="show_objects_num" value="true" />
+        <param name="show_time" value="true" />
+        <param name="fit_obb" value="true" />
         <param name="min_cluster_points_num" value="5" />
         <param name="max_cluster_points_num" value="50000" />
         <param name="min_cluster_size" value="0.2" />

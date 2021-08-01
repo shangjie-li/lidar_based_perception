@@ -1,7 +1,5 @@
-<!-- -->
-
+<?xml version="1.0"?>
 <launch>
-    
     <!--rs_ruby-->
     <arg name="model" default="RS128" />
     <arg name="device_ip" default="192.168.1.200"/>
@@ -29,8 +27,8 @@
         <param name="pub_topic" value="/rslidar_points_processed"/>
         <param name="crop_view_mode" value="false"/>
         <param name="crop_range_mode" value="true"/>
-        <param name="filter_mode" value="false"/>
         <param name="downsample_mode" value="true"/>
+        <param name="filter_mode" value="false"/>
         <param name="show_points_size" value="true"/>
         <param name="show_time" value="true"/>
         <param name="view_number" value="1"/>
@@ -39,10 +37,10 @@
         <param name="view_higher_limit" value="2.0"/>
         <param name="view_lower_limit" value="-4.0"/>
         <param name="min_distance" value="1.5"/>
-        <param name="max_distance" value="30.0"/>
+        <param name="max_distance" value="50.0"/>
+        <param name="leafsize" value="0.15"/>
         <param name="meank" value="5"/>
         <param name="stdmul" value="0.2"/>
-        <param name="leafsize" value="0.15"/>
     </node>
     
     <!--points_ground_filter-->
@@ -50,64 +48,64 @@
         <param name="sub_topic" value="/rslidar_points_processed"/>
         <param name="pub_ground_topic" value="/rslidar_points_ground"/>
         <param name="pub_no_ground_topic" value="/rslidar_points_no_ground"/>
-        <param name="pub_marker_topic" value="/feasible_region"/>
         <param name="show_points_size" value="true"/>
         <param name="show_time" value="true"/>
+        <param name="crop_range_mode" value="true"/>
+        <param name="range_front" value="50"/>
+        <param name="range_rear" value="50"/>
+        <param name="range_left" value="15"/>
+        <param name="range_right" value="15"/>
         <param name="sensor_height" value="2.0"/>
-        <param name="radius_divider" value="0.15"/>
-        <param name="theta_divider" value="0.4"/>
-        <param name="local_slope_threshold" value="40"/>
-        <param name="general_slope_threshold" value="4"/>
-        <param name="curb_height_threshold" value="0.2"/>
-        <param name="ground_filter_mode" value="false"/>
-        <param name="ground_meank" value="5"/>
-        <param name="ground_stdmul" value="1.0"/>
-        <param name="no_ground_filter_mode" value="false"/>
-        <param name="no_ground_meank" value="5"/>
-        <param name="no_ground_stdmul" value="1.0"/>
+        <param name="seeds_distance_threshold" value="1.0"/>
+        <param name="ground_distance_threshold" value="0.3"/>
+        <param name="num_lpr" value="100"/>
+        <param name="seg_num_front" value="5"/>
+        <param name="seg_num_rear" value="5"/>
+        <rosparam param="seg_distance_front" > [10, 20, 30, 40, 50] </rosparam>
+        <rosparam param="seg_distance_rear" > [10, 20, 30, 40, 50] </rosparam>
     </node>
     
     <!--points_cluster-->
     <node pkg="points_cluster" type="points_cluster_node" name="points_cluster_node" output="screen">
-        <param name="sub_topic" value="/rslidar_points_no_ground" />
-        <param name="pub_topic" value="/objects" />
-        <param name="show_objects_num" value="true" />
-        <param name="show_time" value="true" />
-        <param name="fit_obb" value="true" />
-        <param name="min_cluster_points_num" value="5" />
-        <param name="max_cluster_points_num" value="50000" />
-        <param name="min_cluster_size" value="0.2" />
-        <param name="max_cluster_size" value="5" />
-        <param name="seg_num" value="3" />
+        <param name="sub_topic" value="/rslidar_points_no_ground"/>
+        <param name="pub_topic" value="/objects"/>
+        <param name="show_objects_num" value="true"/>
+        <param name="show_time" value="true"/>
+        <param name="fit_obb" value="true"/>
+        <param name="min_cluster_points_num" value="5"/>
+        <param name="max_cluster_points_num" value="50000"/>
+        <param name="min_cluster_size" value="0.2"/>
+        <param name="max_cluster_size" value="5"/>
+        <param name="seg_num" value="3"/>
         <rosparam param="seg_distance" > [30, 45, 60] </rosparam>
         <rosparam param="cluster_distance" > [0.5, 0.75, 1.0] </rosparam>
-        <param name="road_info" value="true" />
+        <param name="road_info" value="true"/>
         <rosparam param="road_edge_left" > [0, 0, 0, 8.75] </rosparam>
         <rosparam param="road_edge_right" > [0, 0, 0, -5.25] </rosparam>
     </node>
     
     <!--multiple_target_tracking-->
     <node pkg="multiple_target_tracking" type="multiple_target_tracking_node" name="multiple_target_tracking_node" output="screen">
-        <param name="sub_topic" value="/objects" />
-        <param name="pub_topic" value="/objects_tracked" />
-        <param name="pub_topic_obstacle_array" value="/obstacle_array" />
-        <param name="frame_id" value="rslidar" />
-        <param name="show_objects_num" value="true" />
-        <param name="show_time" value="true" />
-        <param name="time_interval" value="0.1" />
-        <param name="gate_threshold" value="400" />
-        <param name="blind_update_limit" value="1" />
-        <param name="sigma_ax" value="1" />
-        <param name="sigma_ay" value="1" />
-        <param name="sigma_ox" value="0.1" />
-        <param name="sigma_oy" value="0.1" />
-        <param name="min_scale" value="0" />
-        <param name="max_scale" value="6.0" />
-        <param name="min_height" value="0" />
-        <param name="max_height" value="2.5" />
+        <param name="sub_topic" value="/objects"/>
+        <param name="pub_topic" value="/objects_tracked"/>
+        <param name="pub_topic_obstacle_array" value="/obstacle_array"/>
+        <param name="frame_id" value="rslidar"/>
+        <param name="show_objects_num" value="true"/>
+        <param name="show_time" value="true"/>
+        <param name="time_interval" value="0.1"/>
+        <param name="gate_threshold" value="400"/>
+        <param name="blind_update_limit" value="1"/>
+        <param name="sigma_ax" value="1"/>
+        <param name="sigma_ay" value="1"/>
+        <param name="sigma_ox" value="0.1"/>
+        <param name="sigma_oy" value="0.1"/>
+        <param name="min_scale" value="0"/>
+        <param name="max_scale" value="6.0"/>
+        <param name="min_height" value="0"/>
+        <param name="max_height" value="2.5"/>
     </node>
 
     <!--rviz-->
-    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find lbp)/launch/rslidar.rviz" />
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find lbp)/launch/rslidar.rviz"/>
 
 </launch>

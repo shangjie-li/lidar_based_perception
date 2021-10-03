@@ -1,15 +1,15 @@
 [submodule "points_process"]
 	path = points_process
-	url = https://github.com/shangjie-li/points_process.git
+	url = git@github.com:shangjie-li/points_process.git
 [submodule "points_ground_filter"]
 	path = points_ground_filter
-	url = https://github.com/shangjie-li/points_ground_filter.git
+	url = git@github.com:shangjie-li/points_ground_filter.git
 [submodule "points_cluster"]
 	path = points_cluster
-	url = https://github.com/shangjie-li/points_cluster.git
+	url = git@github.com:shangjie-li/points_cluster.git
 [submodule "multiple_target_tracking"]
 	path = multiple_target_tracking
-	url = https://github.com/shangjie-li/multiple_target_tracking.git
+	url = git@github.com:shangjie-li/multiple_target_tracking.git
 [submodule "ros_rslidar-develop-ruby"]
 	path = ros_rslidar-develop-ruby
-	url = https://github.com/shangjie-li/ros_rslidar-develop-ruby.git
+	url = git@github.com:shangjie-li/ros_rslidar-develop-ruby.git
